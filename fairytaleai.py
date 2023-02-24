@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 
-openai.api_key = ""
+openai.api_key = st.secrets["OPENAI_KEY"]
 model_engine = "text-davinci-003"
 
 st.markdown("<h1 style='text-align: center; color: black;'>Fairytale AI</h1>", unsafe_allow_html=True)
@@ -37,7 +37,7 @@ if st.button("Write"):
     with st.spinner('Wait for it...'):
         completion = openai.Completion.create(
             engine=model_engine,
-            prompt=f"Please write a fairytale about being {option}. Use as caracter a small {ANIMALS[img]}. Please make it similar to Aesop's fairytales and always add a leasson learned at the end.",
+            prompt=f"Please write a fairytale about being {option}. Use as caracter a small {ANIMALS[img]}. Make it similar to Aesop's fairytales and always add a leasson learned at the end.",
             max_tokens=2048,
             n=1,
             stop=None,
@@ -46,3 +46,4 @@ if st.button("Write"):
 
         response = completion.choices[0].text
         st.write(response)
+ 
